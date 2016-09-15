@@ -20,7 +20,7 @@ void Page::TurnOnTetromino() {
 	}
 }
 
-void Page::HandleInput(std::list<sf::Event> events) {
+void Page::HandleInput(list<sf::Event> events) {
 	for (list<sf::Event>::iterator event = events.begin(); event != events.end(); ++event) {
 		if (event->type == sf::Event::KeyPressed && event->key.code == sf::Keyboard::Key::Left) {
 			_activeTetromino.MoveLeft(_staticSquares);
@@ -103,7 +103,6 @@ Page::Page() {
 	}
 }
 
-void Page::update(sf::Time elapsed, std::list<sf::Event> events) {
 	ClearPage();
 
 	HandleDrop(elapsed);

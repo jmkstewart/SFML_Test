@@ -26,11 +26,11 @@ private:
 
 	Tetromino _activeTetromino;
 	sf::Time _timeSinceLastDrop = sf::Time();
-	std::list<sf::Vector2i> _staticSquares;
+	list<sf::Vector2i> _staticSquares;
 
 	void ClearPage();
 	void TurnOnTetromino();
-	void HandleInput(std::list<sf::Event> events);
+	void HandleInput(list<sf::Event> events);
 	void HandleDrop(sf::Time elapsed);
 
 	bool TetrominoHitBottom(list<sf::Vector2i> activeSquares);

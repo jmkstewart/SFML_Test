@@ -29,7 +29,7 @@ bool Tetromino::CanMoveRight(list<sf::Vector2i> staticSquares) {
 	return canMoveRight;
 }
 
-bool Tetromino::CanMoveLeft(std::list<sf::Vector2i> staticSquares) {
+bool Tetromino::CanMoveLeft(list<sf::Vector2i> staticSquares) {
 	bool canMoveLeft = true;
 
 	MoveLeft(); // move our tetromino temporarily
@@ -120,7 +120,7 @@ void Tetromino::Rotate(Rotation direction, list<sf::Vector2i> staticSquares) {
 	}
 }
 
-void Tetromino::MoveRight(std::list<sf::Vector2i> staticSquares) {
+void Tetromino::MoveRight(list<sf::Vector2i> staticSquares) {
 	if (CanMoveRight(staticSquares)) {
 		for (int i = 0; i < sizeof(squares) / sizeof(*squares); i++) {
 			squares[i].x += 1;
@@ -128,7 +128,7 @@ void Tetromino::MoveRight(std::list<sf::Vector2i> staticSquares) {
 	}
 }
 
-void Tetromino::MoveLeft(std::list<sf::Vector2i> staticSquares) {
+void Tetromino::MoveLeft(list<sf::Vector2i> staticSquares) {
 	if (CanMoveLeft(staticSquares)) {
 		for (int i = 0; i < sizeof(squares) / sizeof(*squares); i++) {
 			squares[i].x -= 1;
@@ -136,8 +136,8 @@ void Tetromino::MoveLeft(std::list<sf::Vector2i> staticSquares) {
 	}
 }
 
-std::list<sf::Vector2i> Tetromino::GetActiveSquares() {
-	std::list<sf::Vector2i> activeSquares;
+list<sf::Vector2i> Tetromino::GetActiveSquares() {
+	list<sf::Vector2i> activeSquares;
 
 	for (int i = 0; i < sizeof(squares) / sizeof(*squares); i++) {
 		activeSquares.push_back(squares[i] + activePosition.squares[i]);
