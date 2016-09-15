@@ -58,3 +58,4 @@ x64/Debug/SFML_Test.ilk
 SFML_Test/x64/Debug/vc140.idb
 *.log
 *.tlog
+*.opendb

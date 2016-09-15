@@ -49,6 +49,8 @@ bool Tetromino::OffBoard() {
 			return true;
 		} else if (squares[i].x + activePosition.squares[i].x == -1) {
 			return true;
+		} else if (squares[i].y + activePosition.squares[i].y == 22) {
+			return true;
 		}
 	}
 	return false;
