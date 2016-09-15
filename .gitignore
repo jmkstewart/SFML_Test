@@ -45,3 +45,16 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.suo
+SFML_Test.VC.db
+SFML_Test/SFML_Test.vcxproj.user
+*.obj
+SFML_Test/x64/Debug/SFML_Test.Build.CppClean.log
+*.dll
+SFML_Test/x64/Debug/vc140.pdb
+*.pdb
+x64/Debug/SFML_Test.exe
+x64/Debug/SFML_Test.ilk
+SFML_Test/x64/Debug/vc140.idb
+*.log
+*.tlog
