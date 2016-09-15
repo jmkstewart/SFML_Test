@@ -103,6 +103,7 @@ Page::Page() {
 	}
 }
 
+void Page::update(sf::Time elapsed, list<sf::Event> events) {
 	ClearPage();
 
 	HandleDrop(elapsed);
