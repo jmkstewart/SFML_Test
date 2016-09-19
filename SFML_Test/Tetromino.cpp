@@ -15,6 +15,70 @@ TetrominoPosition::TetrominoPosition(sf::Vector2i position_1, sf::Vector2i posit
 }
 
 
+Tetromino_Square::Tetromino_Square() {
+	positions[0] = TetrominoPosition(sf::Vector2i(1, 2), sf::Vector2i(1, 3), sf::Vector2i(2, 2), sf::Vector2i(2, 3));
+	positions[1] = TetrominoPosition(sf::Vector2i(1, 2), sf::Vector2i(1, 3), sf::Vector2i(2, 2), sf::Vector2i(2, 3));
+	positions[2] = TetrominoPosition(sf::Vector2i(1, 2), sf::Vector2i(1, 3), sf::Vector2i(2, 2), sf::Vector2i(2, 3));
+	positions[3] = TetrominoPosition(sf::Vector2i(1, 2), sf::Vector2i(1, 3), sf::Vector2i(2, 2), sf::Vector2i(2, 3));
+
+	_activePosition = positions[activePositionIndex];
+}
+
+Tetromino_TBlock::Tetromino_TBlock() {
+	positions[0] = TetrominoPosition(sf::Vector2i(2, 2), sf::Vector2i(1, 3), sf::Vector2i(2, 3), sf::Vector2i(3, 3));
+	positions[1] = TetrominoPosition(sf::Vector2i(2, 2), sf::Vector2i(1, 1), sf::Vector2i(1, 2), sf::Vector2i(1, 3));
+	positions[2] = TetrominoPosition(sf::Vector2i(2, 2), sf::Vector2i(1, 1), sf::Vector2i(2, 1), sf::Vector2i(3, 1));
+	positions[3] = TetrominoPosition(sf::Vector2i(2, 2), sf::Vector2i(3, 1), sf::Vector2i(3, 2), sf::Vector2i(3, 3));
+
+	_activePosition = positions[activePositionIndex];
+}
+
+Tetromino_RightSnake::Tetromino_RightSnake() {
+	positions[0] = TetrominoPosition(sf::Vector2i(1, 2), sf::Vector2i(2, 2), sf::Vector2i(0, 3), sf::Vector2i(1, 3));
+	positions[1] = TetrominoPosition(sf::Vector2i(0, 1), sf::Vector2i(0, 2), sf::Vector2i(1, 2), sf::Vector2i(1, 3));
+	positions[2] = TetrominoPosition(sf::Vector2i(1, 2), sf::Vector2i(2, 2), sf::Vector2i(0, 3), sf::Vector2i(1, 3));
+	positions[3] = TetrominoPosition(sf::Vector2i(0, 1), sf::Vector2i(0, 2), sf::Vector2i(1, 2), sf::Vector2i(1, 3));
+
+	_activePosition = positions[activePositionIndex];
+}
+
+Tetromino_LeftSnake::Tetromino_LeftSnake() {
+	positions[0] = TetrominoPosition(sf::Vector2i(1, 2), sf::Vector2i(2, 2), sf::Vector2i(2, 3), sf::Vector2i(3, 3));
+	positions[1] = TetrominoPosition(sf::Vector2i(1, 2), sf::Vector2i(1, 3), sf::Vector2i(2, 1), sf::Vector2i(2, 2));
+	positions[2] = TetrominoPosition(sf::Vector2i(1, 2), sf::Vector2i(2, 2), sf::Vector2i(2, 3), sf::Vector2i(3, 3));
+	positions[3] = TetrominoPosition(sf::Vector2i(1, 2), sf::Vector2i(1, 3), sf::Vector2i(2, 1), sf::Vector2i(2, 2));
+
+	_activePosition = positions[activePositionIndex];
+}
+
+Tetromino_LeftGun::Tetromino_LeftGun() {
+	positions[0] = TetrominoPosition(sf::Vector2i(1, 3), sf::Vector2i(2, 1), sf::Vector2i(2, 2), sf::Vector2i(2, 3));
+	positions[1] = TetrominoPosition(sf::Vector2i(1, 2), sf::Vector2i(1, 3), sf::Vector2i(2, 3), sf::Vector2i(3, 3));
+	positions[2] = TetrominoPosition(sf::Vector2i(1, 1), sf::Vector2i(2, 1), sf::Vector2i(1, 2), sf::Vector2i(1, 3));
+	positions[3] = TetrominoPosition(sf::Vector2i(1, 2), sf::Vector2i(2, 2), sf::Vector2i(3, 2), sf::Vector2i(3, 3));
+
+	_activePosition = positions[activePositionIndex];
+}
+
+Tetromino_RightGun::Tetromino_RightGun() {
+	positions[0] = TetrominoPosition(sf::Vector2i(1, 1), sf::Vector2i(1, 2), sf::Vector2i(1, 3), sf::Vector2i(2, 3));
+	positions[1] = TetrominoPosition(sf::Vector2i(1, 2), sf::Vector2i(2, 2), sf::Vector2i(3, 2), sf::Vector2i(1, 3));
+	positions[2] = TetrominoPosition(sf::Vector2i(2, 1), sf::Vector2i(2, 2), sf::Vector2i(2, 3), sf::Vector2i(1, 1));
+	positions[3] = TetrominoPosition(sf::Vector2i(1, 3), sf::Vector2i(2, 3), sf::Vector2i(3, 3), sf::Vector2i(3, 2));
+
+	_activePosition = positions[activePositionIndex];
+}
+
+Tetromino_Straight::Tetromino_Straight() {
+	positions[0] = TetrominoPosition(sf::Vector2i(1, 0), sf::Vector2i(1, 1), sf::Vector2i(1, 2), sf::Vector2i(1, 3));
+	positions[1] = TetrominoPosition(sf::Vector2i(0, 1), sf::Vector2i(1, 1), sf::Vector2i(2, 1), sf::Vector2i(3, 1));
+	positions[2] = TetrominoPosition(sf::Vector2i(1, 0), sf::Vector2i(1, 1), sf::Vector2i(1, 2), sf::Vector2i(1, 3));
+	positions[3] = TetrominoPosition(sf::Vector2i(0, 1), sf::Vector2i(1, 1), sf::Vector2i(2, 1), sf::Vector2i(3, 1));
+
+	_activePosition = positions[activePositionIndex];
+}
+
+
 bool Tetromino::CanMoveRight(list<sf::Vector2i> staticSquares) {
 	bool canMoveRight = true;
 
@@ -45,11 +109,11 @@ bool Tetromino::CanMoveLeft(list<sf::Vector2i> staticSquares) {
 
 bool Tetromino::OffBoard() {
 	for (int i = 0; i < sizeof(squares) / sizeof(*squares); i++) {
-		if (squares[i].x + activePosition.squares[i].x == 10) {
+		if (squares[i].x + _activePosition.squares[i].x == 10) {
 			return true;
-		} else if (squares[i].x + activePosition.squares[i].x == -1) {
+		} else if (squares[i].x + _activePosition.squares[i].x == -1) {
 			return true;
-		} else if (squares[i].y + activePosition.squares[i].y == 22) {
+		} else if (squares[i].y + _activePosition.squares[i].y == 22) {
 			return true;
 		}
 	}
@@ -59,7 +123,7 @@ bool Tetromino::OffBoard() {
 bool Tetromino::CollidesWidthStatic(list<sf::Vector2i> staticSquares) {
 	for (int i = 0; i < sizeof(squares) / sizeof(*squares); i++) {
 		for (list<sf::Vector2i>::iterator staticSquare = staticSquares.begin(); staticSquare != staticSquares.end(); ++staticSquare) {
-			if (squares[i] + activePosition.squares[i] == *staticSquare) {
+			if (squares[i] + _activePosition.squares[i] == *staticSquare) {
 				return true;
 			}
 		}
@@ -70,7 +134,7 @@ bool Tetromino::CollidesWidthStatic(list<sf::Vector2i> staticSquares) {
 
 
 Tetromino::Tetromino() {
-	activePosition = positions[activePositionIndex];
+	_activePosition = positions[activePositionIndex];
 }
 
 void Tetromino::Drop() {
@@ -105,18 +169,18 @@ void Tetromino::Rotate(Rotation direction, list<sf::Vector2i> staticSquares) {
 		if (activePositionIndex == 4) {
 			activePositionIndex = 0;
 		}
-		activePosition = positions[activePositionIndex];
+		_activePosition = positions[activePositionIndex];
 	} else if (direction == Rotation::LEFT) {
 		activePositionIndex--;
 		if (activePositionIndex == -1) {
 			activePositionIndex = 3;
 		}
-		activePosition = positions[activePositionIndex];
+		_activePosition = positions[activePositionIndex];
 	}
 
 	if (OffBoard() || CollidesWidthStatic(staticSquares)) {
 		activePositionIndex = prevPositionIndex;
-		activePosition = positions[activePositionIndex];
+		_activePosition = positions[activePositionIndex];
 	}
 }
 
@@ -140,7 +204,7 @@ list<sf::Vector2i> Tetromino::GetActiveSquares() {
 	list<sf::Vector2i> activeSquares;
 
 	for (int i = 0; i < sizeof(squares) / sizeof(*squares); i++) {
-		activeSquares.push_back(squares[i] + activePosition.squares[i]);
+		activeSquares.push_back(squares[i] + _activePosition.squares[i]);
 	}
 
 	return activeSquares;

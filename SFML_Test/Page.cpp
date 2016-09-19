@@ -78,6 +78,27 @@ void Page::TurnOnStaticSquares() {
 	}
 }
 
+Tetromino Page::GetRandomTetromino() {
+	// return Tetromino_Straight(); // testing
+
+	switch (_dist7(_rng)) {
+		case 1:
+			return Tetromino_Square();
+		case 2:
+			return Tetromino_TBlock();
+		case 3:
+			return Tetromino_RightSnake();
+		case 4:
+			return Tetromino_LeftSnake();
+		case 5:
+			return Tetromino_LeftGun();
+		case 6:
+			return Tetromino_RightGun();
+		default:
+			return Tetromino_Straight();
+	}
+}
+
 void Page::HandleCollision() {
 	if (TetrominoHitBottom(_activeTetromino.GetActiveSquares())) {
 		// bump the tetromino up one so it's no longer colliding
@@ -89,10 +110,36 @@ void Page::HandleCollision() {
 			_staticSquares.push_back(sf::Vector2i(square->x, square->y));
 		}
 
-		// start a new tetromino at the top
-		_activeTetromino = Tetromino();
+		_activeTetromino = GetRandomTetromino();
 	}
 }
+
+void Page::HandleFullLines() {
+	int numberInRow[22];
+	for (int i = 0; i < 22; i++) {
+		numberInRow[i] = 0;
+	}
+
+	for (list<sf::Vector2i>::iterator square = _staticSquares.begin(); square != _staticSquares.end(); ++square) {
+		numberInRow[square->y]++;
+	}
+
+	for (int i = 0; i < 22; i++) {
+		if (numberInRow[i] == 10) {
+			// remove the row
+			for (int j = 0; j < 10; j++) {
+				_staticSquares.remove(sf::Vector2i(j, i));
+			}
+			// drop all squares above down one
+			for (list<sf::Vector2i>::iterator square = _staticSquares.begin(); square != _staticSquares.end(); ++square) {
+				if (square->y < i) {
+					square->y += 1;
+				}
+			}
+		}
+	}
+}
+
 
 // public
 Page::Page() {
@@ -101,6 +148,11 @@ Page::Page() {
 			_squares[i][j].SetPosition(PAGEOFFSET_X + (i * (SQUAREWIDTH + SPACEBETWEENSQUARES)), PAGEOFFSET_Y + (j * (SQUAREWIDTH + SPACEBETWEENSQUARES)));
 		}
 	}
+
+	_rng.seed(std::random_device()());
+	_dist7 = std::uniform_int_distribution<std::mt19937::result_type>(1, 7);
+
+	_activeTetromino = GetRandomTetromino();
 }
 
 void Page::update(sf::Time elapsed, list<sf::Event> events) {
@@ -109,6 +161,7 @@ void Page::update(sf::Time elapsed, list<sf::Event> events) {
 	HandleDrop(elapsed);
 	HandleInput(events);
 	HandleCollision();
+	HandleFullLines();
 
 	for (int i = 0; i < PAGEWIDTH; i++) {
 		for (int j = 0; j < PAGEHEIGHT; j++) {
@@ -126,11 +179,4 @@ void Page::draw(sf::RenderWindow& window) {
 			_squares[i][j].Draw(window);
 		}
 	}
-}
-
-void Page::AddTetromino() {
-	_timeSinceLastDrop = sf::Time();
-	_activeTetromino = Tetromino();
-
-	TurnOnTetromino();
 }

@@ -27,8 +27,6 @@ int WinMain()
 			if (event.type == sf::Event::KeyPressed) {
 				if (event.key.code == sf::Keyboard::Key::Escape) {
 					window.close();
-				} else if (event.key.code == sf::Keyboard::Key::A) {
-					page.AddTetromino();
 				} else {
 					events.push_back(event);
 				}
