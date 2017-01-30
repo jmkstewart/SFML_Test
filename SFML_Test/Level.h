@@ -8,6 +8,12 @@
 
 using namespace std;
 
+class ILevelListener {
+public:
+	virtual ~ILevelListener() {};
+	virtual void LevelFailed() = 0;
+};
+
 class Level {
 private:
 	// is it pointless to have this on the stack?  let's test it out!!!
@@ -23,6 +29,8 @@ private:
 		{ Square{ 0.0, 0.0 } , Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 } , Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 } , Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 } , Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 } },
 		{ Square{ 0.0, 0.0 } , Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 } , Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 } , Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 } , Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 }, Square{ 0.0, 0.0 } }
 	};
+
+	ILevelListener *_listener;
 
 	Tetromino _activeTetromino;
 	sf::Time _timeSinceLastDrop = sf::Time();
@@ -47,7 +55,7 @@ private:
 	Tetromino GetRandomTetromino();
 
 public:
-	Level();
+	Level(ILevelListener *listener);
 	void update(sf::Time elapsed, std::list<sf::Event> events);
 	void draw(sf::RenderWindow& window);
 };

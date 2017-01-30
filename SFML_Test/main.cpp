@@ -1,49 +1,15 @@
 #include <SFML/Graphics.hpp>
 
 #include "Constants.h"
-#include "Square.h"
-#include "Tetromino.h"
-#include "Level.h"
-#include "GameBox.h"
+#include "Game.h"
 
 int WinMain()
 {
 	sf::RenderWindow window(sf::VideoMode(WINDOWWIDTH, WINDOWHEIGHT), "SFML Test");
 	window.setFramerateLimit(120);
 
-	Level page{};
-	GameBox gameBox{};
-	sf::Clock clock;
-
-	while (window.isOpen())
-	{
-		std::list<sf::Event> events;
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed) {
-				window.close();
-			}
-			if (event.type == sf::Event::KeyPressed) {
-				if (event.key.code == sf::Keyboard::Key::Escape) {
-					window.close();
-				} else {
-					events.push_back(event);
-				}
-			}
-		}
-
-		window.clear();
-
-		sf::Time elapsed = clock.restart();
-
-		page.update(elapsed, events);
-
-		gameBox.Draw(window);
-		page.draw(window);
-
-		window.display();
-	}
+	Game game = Game(&window);
+	game.Run();
 
 	return 0;
 }

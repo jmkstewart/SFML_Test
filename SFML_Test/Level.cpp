@@ -142,14 +142,16 @@ void Level::HandleGameOver() {
 	// check that all squares are within the game box
 	for (list<sf::Vector2i>::iterator square = _staticSquares.begin(); square != _staticSquares.end(); ++square) {
 		if (square->y <= 0) {
-			std::terminate();
+			_listener->LevelFailed();
 		}
 	}
 }
 
 
 // public
-Level::Level() {
+Level::Level(ILevelListener *listener) {
+	_listener = listener;
+
 	for (int i = 0; i < PAGEWIDTH; i++) {
 		for (int j = 0; j < PAGEHEIGHT; j++) {
 			_squares[i][j].SetPosition(PAGEOFFSET_X + (i * (SQUAREWIDTH + SPACEBETWEENSQUARES)), PAGEOFFSET_Y + (j * (SQUAREWIDTH + SPACEBETWEENSQUARES)));
