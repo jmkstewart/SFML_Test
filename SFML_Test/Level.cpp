@@ -1,9 +1,9 @@
-#include "Page.h"
+#include "Level.h"
 
 #include "Constants.h"
 
 // private
-void Page::ClearPage() {
+void Level::ClearLevel() {
 	for (int i = 0; i < PAGEWIDTH; i++) {
 		for (int j = 0; j < PAGEHEIGHT; j++) {
 			_squares[i][j].SetOn(false);
@@ -12,7 +12,7 @@ void Page::ClearPage() {
 	}
 }
 
-void Page::TurnOnTetromino() {
+void Level::TurnOnTetromino() {
 	list<sf::Vector2i> activeSquares = _activeTetromino.GetActiveSquares();
 
 	for (list<sf::Vector2i>::iterator square = activeSquares.begin(); square != activeSquares.end(); ++square) {
@@ -20,7 +20,7 @@ void Page::TurnOnTetromino() {
 	}
 }
 
-void Page::HandleInput(list<sf::Event> events) {
+void Level::HandleInput(list<sf::Event> events) {
 	for (list<sf::Event>::iterator event = events.begin(); event != events.end(); ++event) {
 		if (event->type == sf::Event::KeyPressed && event->key.code == sf::Keyboard::Key::Left) {
 			_activeTetromino.MoveLeft(_staticSquares);
@@ -34,7 +34,7 @@ void Page::HandleInput(list<sf::Event> events) {
 	}
 }
 
-void Page::HandleDrop(sf::Time elapsed) {
+void Level::HandleDrop(sf::Time elapsed) {
 	_timeSinceLastDrop += elapsed;
 
 	if (_timeSinceLastDrop > sf::milliseconds(500)) {
@@ -43,7 +43,7 @@ void Page::HandleDrop(sf::Time elapsed) {
 	}
 }
 
-bool Page::TetrominoHitBottom(list<sf::Vector2i> activeSquares) {
+bool Level::TetrominoHitBottom(list<sf::Vector2i> activeSquares) {
 	// first check if the tetromino has hit another tetromino
 	for (list<sf::Vector2i>::iterator activeSquare = activeSquares.begin(); activeSquare != activeSquares.end(); ++activeSquare) {
 		for (list<sf::Vector2i>::iterator staticSquare = _staticSquares.begin(); staticSquare != _staticSquares.end(); ++staticSquare) {
@@ -63,13 +63,13 @@ bool Page::TetrominoHitBottom(list<sf::Vector2i> activeSquares) {
 	return false; // no collisions
 }
 
-void Page::DropTetrominoToBottom() {
+void Level::DropTetrominoToBottom() {
 	while (!TetrominoHitBottom(_activeTetromino.GetActiveSquares())) {
 		_activeTetromino.Drop();
 	}
 }
 
-void Page::TurnOnStaticSquares() {
+void Level::TurnOnStaticSquares() {
 	for (list<sf::Vector2i>::iterator square = _staticSquares.begin(); square != _staticSquares.end(); ++square) {
 		int x = square->x;
 		int y = square->y;
@@ -78,9 +78,7 @@ void Page::TurnOnStaticSquares() {
 	}
 }
 
-Tetromino Page::GetRandomTetromino() {
-	// return Tetromino_Straight(); // testing
-
+Tetromino Level::GetRandomTetromino() {
 	switch (_dist7(_rng)) {
 		case 1:
 			return Tetromino_Square();
@@ -99,7 +97,7 @@ Tetromino Page::GetRandomTetromino() {
 	}
 }
 
-void Page::HandleCollision() {
+void Level::HandleCollision() {
 	if (TetrominoHitBottom(_activeTetromino.GetActiveSquares())) {
 		// bump the tetromino up one so it's no longer colliding
 		_activeTetromino.MoveUpForCollision();
@@ -114,7 +112,7 @@ void Page::HandleCollision() {
 	}
 }
 
-void Page::HandleFullLines() {
+void Level::HandleFullLines() {
 	int numberInRow[22];
 	for (int i = 0; i < 22; i++) {
 		numberInRow[i] = 0;
@@ -140,9 +138,18 @@ void Page::HandleFullLines() {
 	}
 }
 
+void Level::HandleGameOver() {
+	// check that all squares are within the game box
+	for (list<sf::Vector2i>::iterator square = _staticSquares.begin(); square != _staticSquares.end(); ++square) {
+		if (square->y <= 0) {
+			std::terminate();
+		}
+	}
+}
+
 
 // public
-Page::Page() {
+Level::Level() {
 	for (int i = 0; i < PAGEWIDTH; i++) {
 		for (int j = 0; j < PAGEHEIGHT; j++) {
 			_squares[i][j].SetPosition(PAGEOFFSET_X + (i * (SQUAREWIDTH + SPACEBETWEENSQUARES)), PAGEOFFSET_Y + (j * (SQUAREWIDTH + SPACEBETWEENSQUARES)));
@@ -155,25 +162,30 @@ Page::Page() {
 	_activeTetromino = GetRandomTetromino();
 }
 
-void Page::update(sf::Time elapsed, list<sf::Event> events) {
-	ClearPage();
+void Level::update(sf::Time elapsed, list<sf::Event> events) {
+	ClearLevel();
 
 	HandleDrop(elapsed);
 	HandleInput(events);
 	HandleCollision();
+	HandleGameOver();
 	HandleFullLines();
 
-	for (int i = 0; i < PAGEWIDTH; i++) {
-		for (int j = 0; j < PAGEHEIGHT; j++) {
-			_squares[i][j].Update();
-		}
-	}
+	UpdateSquares();
 
 	TurnOnTetromino();
 	TurnOnStaticSquares();
 }
 
-void Page::draw(sf::RenderWindow& window) {
+void Level::UpdateSquares() {
+	for (int i = 0; i < PAGEWIDTH; i++) {
+		for (int j = 0; j < PAGEHEIGHT; j++) {
+			_squares[i][j].Update();
+		}
+	}
+}
+
+void Level::draw(sf::RenderWindow& window) {
 	for (int i = 0; i < PAGEWIDTH; i++) {
 		for (int j = 0; j < PAGEHEIGHT; j++) {
 			_squares[i][j].Draw(window);

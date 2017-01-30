@@ -3,7 +3,7 @@
 #include "Constants.h"
 #include "Square.h"
 #include "Tetromino.h"
-#include "Page.h"
+#include "Level.h"
 #include "GameBox.h"
 
 int WinMain()
@@ -11,7 +11,7 @@ int WinMain()
 	sf::RenderWindow window(sf::VideoMode(WINDOWWIDTH, WINDOWHEIGHT), "SFML Test");
 	window.setFramerateLimit(120);
 
-	Page page{};
+	Level page{};
 	GameBox gameBox{};
 	sf::Clock clock;
 

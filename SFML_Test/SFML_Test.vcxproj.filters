@@ -24,10 +24,10 @@
     <ClCompile Include="Tetromino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Page.cpp">
+    <ClCompile Include="GameBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameBox.cpp">
+    <ClCompile Include="Level.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,10 +41,10 @@
     <ClInclude Include="Tetromino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Page.h">
+    <ClInclude Include="GameBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameBox.h">
+    <ClInclude Include="Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

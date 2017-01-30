@@ -160,14 +160,14 @@
   <ItemGroup>
     <ClCompile Include="GameBox.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Page.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="Tetromino.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
     <ClInclude Include="GameBox.h" />
-    <ClInclude Include="Page.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="Tetromino.h" />
   </ItemGroup>
