@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameBox.cpp" />
+    <ClCompile Include="HUDBox.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Square.cpp" />
@@ -169,9 +170,17 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameBox.h" />
+    <ClInclude Include="HUDBox.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="Tetromino.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\DejaVuSansMono.ttf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+      <DeploymentContent>true</DeploymentContent>
+    </Font>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

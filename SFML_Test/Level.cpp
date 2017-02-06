@@ -143,6 +143,7 @@ void Level::HandleGameOver() {
 	for (list<sf::Vector2i>::iterator square = _staticSquares.begin(); square != _staticSquares.end(); ++square) {
 		if (square->y <= 0) {
 			_listener->LevelFailed();
+			break;
 		}
 	}
 }
@@ -170,8 +171,8 @@ void Level::update(sf::Time elapsed, list<sf::Event> events) {
 	HandleDrop(elapsed);
 	HandleInput(events);
 	HandleCollision();
-	HandleGameOver();
 	HandleFullLines();
+	HandleGameOver();
 
 	UpdateSquares();
 

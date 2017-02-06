@@ -31,12 +31,21 @@ void Game::Run() {
 		_page.update(elapsed, events);
 
 		_gameBox.Draw(*_window);
-		_page.draw(*_window);
+		_hudBox.Draw(*_window);
+
+		if (!_gameOver) {
+			_page.draw(*_window);
+		}
 
 		_window->display();
+
+		if (_gameOver) {
+			_page = Level(this);
+			_gameOver = false;
+		}
 	}
 }
 
 void Game::LevelFailed() {
-	_window->close();
+	_gameOver = true;
 }

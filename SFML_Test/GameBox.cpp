@@ -13,5 +13,5 @@ GameBox::GameBox() {
 
 void GameBox::Draw(sf::RenderWindow& window) {
 	window.draw(_outerBox);
-	//window.draw(_innerBox);
+	window.draw(_innerBox);
 }
